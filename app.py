@@ -81,7 +81,7 @@ if "case" not in st.session_state:
     st.session_state.case = list(all_cases.keys())[0] if all_cases else ""
 
 # ==========================================
-# 4. 页面基础设置 & 字体极致精修 CSS
+# 4. 页面基础设置 & 公网自适应 CSS
 # ==========================================
 st.set_page_config(page_title="MedGuard 安全审计", page_icon="🛡️", layout="wide")
 
@@ -91,12 +91,13 @@ st.markdown("""
 :root{--navy:#142d55;--blue:#2878e8;--ink:#182b4d}
 html,body,[class*="css"]{font-family:'Noto Sans SC','Microsoft YaHei',sans-serif}
 .stApp{background:linear-gradient(135deg,#f5f8ff 0%,#edf4ff 55%,#f8fbff 100%);color:var(--ink)}
-.block-container{max-width:1600px;padding-top:1.5rem;padding-bottom:2rem}
+.block-container{max-width:1400px;padding-top:1.5rem;padding-bottom:2rem}
 
-/* ================= 侧边栏按钮导航 ================= */
+/* ================= 侧边栏：固定宽度 + 适中字体 ================= */
 section[data-testid="stSidebar"]{
     background: linear-gradient(180deg, #112a4f 0%, #0b1c36 100%);
     border-right: 1px solid #1c3863;
+    width: 260px !important; /* 🔥 固定宽度，防止过大 */
 }
 section[data-testid="stSidebar"] *{color:#fff!important;}
 
@@ -105,18 +106,18 @@ section[data-testid="stSidebar"] .stButton > button {
     color: #fff !important;
     border: 1px solid rgba(255,255,255,0.05) !important;
     text-align: left !important;
-    padding: 18px 24px !important;
-    border-radius: 12px !important;
-    font-size: 22px !important; /* 🔥 导航字体再次放大 */
-    font-weight: 800 !important;
+    padding: 12px 18px !important;
+    border-radius: 10px !important;
+    font-size: 17px !important; /* 🔥 字体调整到17px，端庄大气 */
+    font-weight: 700 !important;
     transition: all 0.3s ease !important;
     display: flex !important;
     justify-content: flex-start !important;
-    margin-bottom: 10px !important;
+    margin-bottom: 8px !important;
 }
 section[data-testid="stSidebar"] .stButton > button:hover {
     background: rgba(255, 255, 255, 0.1) !important;
-    transform: translateX(4px);
+    transform: translateX(3px);
 }
 section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
     background: #2d7bf5 !important;
@@ -124,10 +125,10 @@ section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
     box-shadow: 0 4px 15px rgba(45, 123, 245, 0.5) !important;
 }
 
-/* ================= 顶部四卡片 (极度精修) ================= */
+/* ================= 顶部四卡片：防溢出处理 ================= */
 .metrics-container{display:flex;gap:16px;margin-bottom:24px}
 .metric-card{
-    flex:1; padding:20px 24px; border-radius:18px; position:relative; overflow:hidden;
+    flex:1; padding:20px; border-radius:16px; position:relative; overflow:hidden;
     box-shadow:0 4px 15px rgba(0,0,0,0.03); border:1px solid rgba(255,255,255,0.6);
     display:flex; flex-direction:column; justify-content:center; transition:transform 0.3s
 }
@@ -137,23 +138,24 @@ section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
 .metric-card-orange{background:linear-gradient(135deg,#fff8f0,#ffeeda);color:#b56c1a}
 .metric-card-purple{background:linear-gradient(135deg,#f8f0ff,#ecdfff);color:#703eb5}
 
-/* 标签：上面一行字 */
-.metric-card .m-label{
-    font-size: 15px; font-weight: 700; opacity: 0.85; margin-bottom: 8px;
-}
-/* 数值：下面一行字（变大且不换行） */
-.metric-card .m-value{
-    font-size: 32px; font-weight: 800; display: flex; align-items: center; gap: 8px;
-    white-space: nowrap; /* 强制不换行 */
+.metric-card .m-label{ font-size: 14px; font-weight: 700; opacity: 0.85; margin-bottom: 8px; }
+.metric-card .m-value{ 
+    font-size: 26px; /* 🔥 缩小一点，防止溢出 */
+    font-weight: 800; 
+    display: flex; 
+    align-items: center; 
+    gap: 6px;
+    white-space: nowrap;
 }
 
-/* 面板与按钮等 */
-.panel{background:#ffffffed;border:1px solid #e4edfa;border-radius:17px;box-shadow:0 5px 18px #2a5da00e;padding:22px;margin-bottom:16px}
-.panel-title{font-size:22px;font-weight:800;color:#142b50;margin-bottom:15px;border-left:4px solid #3489f4;padding-left:11px}
-.hero{border:1px solid #dce9fb;border-radius:22px;padding:27px 34px;margin-bottom:24px;background:linear-gradient(105deg,#fff,#eaf3ff 58%,#dcecff);box-shadow:0 8px 28px #2a5da014;}
-.hero-title{font-size:34px;font-weight:800;color:#10264d}.hero-sub{color:#526b91;font-size:16px;margin-top:9px}
+/* 面板与标题 */
+.panel{background:#ffffffed;border:1px solid #e4edfa;border-radius:16px;box-shadow:0 5px 18px #2a5da00e;padding:20px;margin-bottom:16px}
+.panel-title{font-size:20px;font-weight:800;color:#142b50;margin-bottom:15px;border-left:4px solid #3489f4;padding-left:10px}
+.hero{border:1px solid #dce9fb;border-radius:20px;padding:24px 30px;margin-bottom:24px;background:linear-gradient(105deg,#fff,#eaf3ff 58%,#dcecff);box-shadow:0 8px 28px #2a5da014;}
+.hero-title{font-size:28px;font-weight:800;color:#10264d; line-height: 1.4;}
+.hero-sub{color:#526b91;font-size:15px;margin-top:8px}
 
-div.stButton>button{border:0;border-radius:13px;min-height:49px;font-weight:700;font-size:16px;color:white;background:linear-gradient(100deg,#318cf0,#1768df);box-shadow:0 8px 18px #2477e133;transition:0.3s}
+div.stButton>button{border:0;border-radius:12px;min-height:48px;font-weight:700;font-size:16px;color:white;background:linear-gradient(100deg,#318cf0,#1768df);box-shadow:0 8px 18px #2477e133;transition:0.3s}
 div.stButton>button:hover{color:white;border:0;background:linear-gradient(100deg,#237ce2,#105bc9);transform:translateY(-2px)}
 div[data-baseweb="select"]>div,.stTextArea textarea{border-radius:12px!important;border-color:#dce7f7!important;background:#fbfdff!important}
 
@@ -165,24 +167,20 @@ footer,#MainMenu{visibility:hidden}
 # 5. 侧边栏导航
 # ==========================================
 with st.sidebar:
-    st.markdown("<div style='text-align:center;padding:0 0 20px'><div style='font-size:60px;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.3))'>🛡️</div><div style='font-size:26px;font-weight:800;letter-spacing:1px;margin-top:10px'>MedGuard</div><div style='font-size:14px;opacity:.65;margin-top:4px'>医疗大模型安全审计系统</div></div>",unsafe_allow_html=True)
+    st.markdown("<div style='text-align:center;padding:0 0 20px'><div style='font-size:50px;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.3))'>🛡️</div><div style='font-size:24px;font-weight:800;letter-spacing:1px;margin-top:8px'>MedGuard</div><div style='font-size:13px;opacity:.65;margin-top:4px'>医疗大模型安全审计</div></div>",unsafe_allow_html=True)
     
-    # 🔥 解决点击延迟：加入 st.rerun() 强制立即刷新
     if st.button("🏠 首页", use_container_width=True, type="primary" if st.session_state.current_page == "首页" else "secondary"):
         if st.session_state.current_page != "首页":
             st.session_state.current_page = "首页"
             st.rerun()
-            
     if st.button("📋 审计记录", use_container_width=True, type="primary" if st.session_state.current_page == "审计记录" else "secondary"):
         if st.session_state.current_page != "审计记录":
             st.session_state.current_page = "审计记录"
             st.rerun()
-            
     if st.button("⚙️ 系统设置", use_container_width=True, type="primary" if st.session_state.current_page == "系统设置" else "secondary"):
         if st.session_state.current_page != "系统设置":
             st.session_state.current_page = "系统设置"
             st.rerun()
-            
     if st.button("ⓘ 关于我们", use_container_width=True, type="primary" if st.session_state.current_page == "关于我们" else "secondary"):
         if st.session_state.current_page != "关于我们":
             st.session_state.current_page = "关于我们"
@@ -190,7 +188,7 @@ with st.sidebar:
         
     page = st.session_state.current_page
     st.markdown("<div style='height:80px'></div>",unsafe_allow_html=True)
-    st.markdown("<div style='text-align:center;opacity:.6;font-size:14px;letter-spacing:1px'>用 AI 守护医疗安全<br>让诊疗更可靠</div>",unsafe_allow_html=True)
+    st.markdown("<div style='text-align:center;opacity:.6;font-size:13px;letter-spacing:1px'>用 AI 守护医疗安全<br>让诊疗更可靠</div>",unsafe_allow_html=True)
 
 # ==========================================
 # 6. 核心逻辑
@@ -249,12 +247,11 @@ h1,h2=st.columns([5,1])
 with h1:
     st.markdown("<div class='hero'><div class='hero-title'>🛡️ MedGuard　<span style='font-weight:400;color:#8aa0bf'>|</span>　医疗大模型安全审计系统</div><div class='hero-sub'>核心理念：我们不生产建议，我们做 AI 进医院的“安全气囊”。</div></div>",unsafe_allow_html=True)
 with h2:
-    st.markdown("<div style='padding-top:28px;text-align:right'><span style='display:inline-block;background:#e6faf4;color:#079b7d;border:1px solid #c8f0e5;padding:8px 14px;border-radius:30px;font-size:14px;font-weight:700;box-shadow:0 4px 10px rgba(7,155,125,0.15)'>● 系统运行正常</span></div>",unsafe_allow_html=True)
+    st.markdown("<div style='padding-top:24px;text-align:right'><span style='display:inline-block;background:#e6faf4;color:#079b7d;border:1px solid #c8f0e5;padding:6px 12px;border-radius:30px;font-size:13px;font-weight:700;box-shadow:0 4px 10px rgba(7,155,125,0.15)'>● 系统运行正常</span></div>",unsafe_allow_html=True)
 
 if "首页" in page:
     CURRENT_CASES = get_cases()
     
-    # 顶部四卡片，为了第三格不被挤换行，把第三格的字稍微缩减为"双引擎"，或者调整字号
     st.markdown(f"""
     <div class="metrics-container">
         <div class="metric-card metric-card-blue">
@@ -267,7 +264,7 @@ if "首页" in page:
         </div>
         <div class="metric-card metric-card-orange">
             <div class="m-label">🧠 语义审查</div>
-            <div class="m-value"><span class="m-icon">🧠</span> 规则+大模型</div>
+            <div class="m-value"><span class="m-icon">🧠</span> 双引擎</div> <!-- 🔥 改短了，绝对不溢出 -->
         </div>
         <div class="metric-card metric-card-purple">
             <div class="m-label">◷ 审计状态</div>
@@ -318,16 +315,16 @@ if "首页" in page:
             status_text = "审计需关注" if st.session_state.audit_result and st.session_state.audit_result["error"] else ("✅ 审计通过" if st.session_state.audit_result else "待审计")
             color = "#d83b49" if st.session_state.audit_result and st.session_state.audit_result["error"] else ("#079b7d" if st.session_state.audit_result else "#94a4bd")
             bg = "#fff0f1" if st.session_state.audit_result and st.session_state.audit_result["error"] else ("#e6faf4" if st.session_state.audit_result else "#f0f0f0")
-            st.markdown(f"<div style='text-align:right'><span style='background:{bg};color:{color};padding:8px 12px;border-radius:30px;font-weight:700;font-size:14px'>● {status_text}</span></div>",unsafe_allow_html=True)
+            st.markdown(f"<div style='text-align:right'><span style='background:{bg};color:{color};padding:6px 12px;border-radius:30px;font-weight:700;font-size:13px'>● {status_text}</span></div>",unsafe_allow_html=True)
 
         if not st.session_state.audit_result:
             st.markdown("<div style='background:#f2f7ff;border:1px solid #e0ebfb;border-radius:14px;padding:40px 20px;text-align:center;color:#6d82a3'><div style='font-size:40px'>🩺</div><b style='font-size:18px;color:#34547e'>等待启动安全审计</b><div style='font-size:14px;margin-top:8px'>请选择左侧病例，然后点击启动审计</div></div>",unsafe_allow_html=True)
         else:
             res = st.session_state.audit_result
             if res["error"]:
-                st.markdown("<div style='background:#fff0f1;border:1px solid #ffd9dc;border-left:5px solid #e54855;border-radius:14px;padding:17px;color:#8e2630'><div style='font-size:20px;font-weight:800'>⚠️ 审计未通过：发现安全风险</div><div style='margin-top:7px;font-size:15px'>系统已拦截高危逻辑，请交由专业临床人员复核。</div></div>",unsafe_allow_html=True)
+                st.markdown("<div style='background:#fff0f1;border:1px solid #ffd9dc;border-left:5px solid #e54855;border-radius:14px;padding:17px;color:#8e2630'><div style='font-size:18px;font-weight:800'>⚠️ 审计未通过：发现安全风险</div><div style='margin-top:7px;font-size:14px'>系统已拦截高危逻辑，请交由专业临床人员复核。</div></div>",unsafe_allow_html=True)
             else:
-                st.markdown("<div style='background:#e6faf4;border:1px solid #c8f0e5;border-left:5px solid #079b7d;border-radius:14px;padding:17px;color:#079b7d'><b style='font-size:20px'>✅ 审计通过：未发现安全隐患</b><div style='margin-top:7px;font-size:15px'>该病历符合预设安全规则与大模型语义规范。</div></div>",unsafe_allow_html=True)
+                st.markdown("<div style='background:#e6faf4;border:1px solid #c8f0e5;border-left:5px solid #079b7d;border-radius:14px;padding:17px;color:#079b7d'><b style='font-size:18px'>✅ 审计通过：未发现安全隐患</b><div style='margin-top:7px;font-size:14px'>该病历符合预设安全规则与大模型语义规范。</div></div>",unsafe_allow_html=True)
             
             st.write("")
             a,b,c=st.columns(3)
@@ -336,14 +333,14 @@ if "首页" in page:
             with c: st.markdown("**◷ 审计时间**"); st.markdown(res['time'])
             
             if res["local"]:
-                st.markdown("<div style='font-size:18px;font-weight:800;color:#142b50;margin-top:15px;margin-bottom:10px'>🚨 本地规则拦截</div>",unsafe_allow_html=True)
+                st.markdown("<div style='font-size:16px;font-weight:800;color:#142b50;margin-top:15px;margin-bottom:10px'>🚨 本地规则拦截</div>",unsafe_allow_html=True)
                 for alert in res["local"]:
-                    st.markdown(f"<div style='padding:10px 15px;margin:5px 0;background:#fff0f1;border:1px solid #ffd9dc;border-radius:12px;color:#8e2630;font-weight:600;font-size:15px'>{alert}</div>",unsafe_allow_html=True)
+                    st.markdown(f"<div style='padding:10px 15px;margin:5px 0;background:#fff0f1;border:1px solid #ffd9dc;border-radius:12px;color:#8e2630;font-weight:600;font-size:14px'>{alert}</div>",unsafe_allow_html=True)
             
-            st.markdown("<div style='font-size:18px;font-weight:800;color:#142b50;margin-top:20px;margin-bottom:10px'>🧠 大模型语义深度审计</div>",unsafe_allow_html=True)
+            st.markdown("<div style='font-size:16px;font-weight:800;color:#142b50;margin-top:20px;margin-bottom:10px'>🧠 大模型语义深度审计</div>",unsafe_allow_html=True)
             st.info(res["llm"])
 
-        st.markdown("<hr><div style='background:#edf5ff;border:1px solid #dfebfb;border-radius:12px;padding:12px 14px;color:#42658f;font-size:13px;line-height:1.7'>ⓘ 本系统当前页面为教学/产品演示原型。AI 审计结果不能替代医生、药师或医院正式审核流程。</div></div>",unsafe_allow_html=True)
+        st.markdown("<hr><div style='background:#edf5ff;border:1px solid #dfebfb;border-radius:12px;padding:12px 14px;color:#42658f;font-size:12px;line-height:1.7'>ⓘ 本系统当前页面为教学/产品演示原型。AI 审计结果不能替代医生、药师或医院正式审核流程。</div></div>",unsafe_allow_html=True)
 
 elif "审计记录" in page:
     st.markdown("<div class='panel'><div class='panel-title'>📋 审计历史台账</div>",unsafe_allow_html=True)
